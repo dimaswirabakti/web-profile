@@ -1,0 +1,5 @@
+# Dependencies
+node_modules/
+
+# CSS Source Files (Tailwind input)
+src/input.css
