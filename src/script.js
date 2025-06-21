@@ -24,7 +24,7 @@ function typeText() {
     } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         textIndex = (textIndex + 1) % texts.length;
-        typeSpeed = 500;
+        typeSpeed = 300;
     }
 
     setTimeout(typeText, typeSpeed);
@@ -72,9 +72,9 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+        navbar.style.background = 'rgba(15, 23, 42, 0.5)';
     } else {
-        navbar.style.background = 'rgba(15, 23, 42, 0.8)';
+        navbar.style.background = 'rgba(15, 23, 42, 0.9)';
     }
 });
 
@@ -120,6 +120,16 @@ backToTopBtn.addEventListener('click', () => {
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
+function showMessage(text, type) {
+    formMessage.className = `mt-8 p-4 rounded-lg text-center ${type === 'success' ? 'bg-green-600/20 text-green-400 border border-green-600/30' : 'bg-red-600/20 text-red-400 border border-red-600/30'}`;
+    formMessage.textContent = text;
+    formMessage.classList.remove('hidden');
+    
+    setTimeout(() => {
+        formMessage.classList.add('hidden');
+    }, 5000);
+}
+
 contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -144,19 +154,9 @@ contactForm.addEventListener('submit', function(e) {
     }
 
     // Simulate form submission (replace with actual form handling)
-    showMessage('Thank you for your message! I\'ll get back to you soon.', 'success');
+    showMessage("Thank you for your message! I'll get back to you soon.", 'success');
     contactForm.reset();
 });
-
-function showMessage(text, type) {
-    formMessage.className = `mt-8 p-4 rounded-lg text-center ${type === 'success' ? 'bg-green-600/20 text-green-400 border border-green-600/30' : 'bg-red-600/20 text-red-400 border border-red-600/30'}`;
-    formMessage.textContent = text;
-    formMessage.classList.remove('hidden');
-    
-    setTimeout(() => {
-        formMessage.classList.add('hidden');
-    }, 5000);
-}
 
 // Add focus effects to form inputs
 const inputs = document.querySelectorAll('input, textarea');
@@ -192,23 +192,10 @@ if ('IntersectionObserver' in window) {
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const parallax = document.querySelectorAll('.animate-float');
-    const speed = 0.1;
+    const speed = 1;
 
     parallax.forEach(element => {
         const yPos = -(scrolled * speed);
         element.style.transform = `translateY(${yPos}px)`;
     });
-});
-
-// Preload critical resources
-const preloadLinks = [
-    'https://cdn.tailwindcss.com'
-];
-
-preloadLinks.forEach(link => {
-    const linkElement = document.createElement('link');
-    linkElement.rel = 'preload';
-    linkElement.href = link;
-    linkElement.as = 'script';
-    document.head.appendChild(linkElement);
 });
